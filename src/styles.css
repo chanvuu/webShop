@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+  }
+  
+  :root { 
+    --font-style: 'Roboto', sans-serif;
+    --background-header: white;
+    --background-color: white;
+    --text-color: #282828;
+    --btn-bg: #ccc;  /* Light mode */
+    --btn-text: white;
+    --price-text: #222222;
+    --cart-button: #ec6838;
+    --cart-text: white;
+    --category-badge: #ec6838;
+    --category-badge-text: white;
+    --category-button: #ec6838;
+    --category-text: white;
+    --background-cart: #191919;
+    --cart-text: white;
+    --hover: #ec6838;
+}
+
+body.dark-theme {
+    --background-header: #191919;
+    --background-color: black;
+    --text-color: #f5f5f5;
+    --btn-bg: #ec6838;  /* Dark mode */
+    --btn-text: black;
+    --price-text: #B2B2B2;
+    --background-cart: #ec6838;
+  }
+    
