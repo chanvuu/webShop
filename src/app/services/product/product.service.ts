@@ -32,6 +32,10 @@ export class ProductService {
     );
   }
 
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  }
+
   private sortByCategory(a: string, b: string): number {
     const order = ['men\'s clothing', 'women\'s clothing', 'jewelery'];
     return order.indexOf(a) - order.indexOf(b);
