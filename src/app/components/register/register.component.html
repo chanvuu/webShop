@@ -12,19 +12,41 @@
             type="email" 
             formControlName="email"
             placeholder="Enter your email">
+          <!-- Validation cho email - Sửa lại thông báo lỗi -->
+          <div class="validation-error" *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+            Vui lòng nhập email
+          </div>
+          <div class="validation-error" *ngIf="registerForm.get('email')?.errors?.['pattern'] && registerForm.get('email')?.touched">
+            Email phải có định dạng gmail.com
+          </div>
         </div>
+
         <div class="form-group">
           <input 
             type="password" 
             formControlName="password"
             placeholder="Enter password">
+          <!-- Validation cho password -->
+          <div class="validation-error" *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+            Vui lòng nhập mật khẩu
+          </div>
+          <div class="validation-error" *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
+            Mật khẩu phải có ít nhất 6 ký tự
+          </div>
         </div>
+
         <div class="form-group">
           <input 
             type="password" 
             formControlName="confirmPassword"
             placeholder="Confirm password">
         </div>
+
+        <!-- Hiển thị lỗi chung -->
+        <div class="validation-error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
         <button type="submit" class="login-btn">Register</button>
         
         <div class="register-link">

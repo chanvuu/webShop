@@ -10,9 +10,19 @@
     </div>
 
     <div class="login-buttons">
-      <span class="label" (click)="openLogin()">
-        <i class="fas fa-user"></i> Login
-      </span>
+      <ng-container *ngIf="!userEmail">
+        <span class="label" (click)="openLogin()">
+          <i class="fas fa-user"></i> Login
+        </span>
+      </ng-container>
+      <ng-container *ngIf="userEmail">
+        <span class="label">
+          <i class="fas fa-user"></i> {{ userEmail }}
+        </span>
+        <span class="label" onclick="logout()" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </span>
+      </ng-container>
     </div>
 
     <div class="cart-buttons" (click)="toggleCartSidebar()" >

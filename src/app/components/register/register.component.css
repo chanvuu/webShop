@@ -1,134 +1,151 @@
-/* Copy toàn bộ CSS từ login.component.css sang */ 
-
+/* Copy toàn bộ CSS từ login.component.css */
 .login-page {
-  width: 100%;
-  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1a1a1a;
+  height: 100vh;
+  background: #f6f5f7;
 }
 
 .login-container {
-  width: 100%;
-  max-width: 1000px;
-  margin: 20px;
   display: flex;
-  background: #2a2a2a;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+  margin: auto;
+  background: #fff;
   border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .left-side {
-  width: 45%;
-  padding: 60px 40px;
-  background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+  flex: 1;
+  padding: 40px;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.left-side h1 {
-  color: white;
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.left-side p {
-  color: #cccccc;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.right-side {
-  width: 55%;
-  padding: 60px 40px;
-  background: #2a2a2a;
-}
-
-.right-side h2 {
-  color: white;
-  font-size: 24px;
-  margin-bottom: 40px;
+  align-items: center;
   text-align: center;
 }
 
+.right-side {
+  flex: 1;
+  padding: 40px;
+  background: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .form-group {
-  margin-bottom: 25px;
+  position: relative;
 }
 
-.form-group input {
+input {
   width: 100%;
-  padding: 12px;
-  background: transparent;
+  padding: 12px 15px;
   border: none;
-  border-bottom: 1px solid #555;
-  color: white;
-  font-size: 16px;
-  transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-bottom-color: #007bff;
-}
-
-.form-group input::placeholder {
-  color: #666;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 12px;
-  background: #555;
-  color: white;
-  border: none;
+  background-color: #eee;
   border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-bottom: 30px;
 }
 
-.login-btn:hover {
-  background: #666;
+.validation-error {
+  color: #ff4444;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 75, 43, 0.3);
 }
 
 .register-link {
   text-align: center;
-  margin-top: 30px;
-}
-
-.register-link p {
-  color: #888;
+  margin-top: 15px;
 }
 
 .register-link a {
-  color: #007bff;
+  color: #ff4b2b;
   text-decoration: none;
-  cursor: pointer;
 }
 
 .register-link a:hover {
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-  }
-  
-  .left-side,
-  .right-side {
-    width: 100%;
-  }
-  
-  .left-side {
-    padding: 40px 20px;
-  }
-  
-  .right-side {
-    padding: 40px 20px;
-  }
+/* Container chính */
+.register-wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+/* Form đăng ký */
+.register-form {
+  width: 400px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Tiêu đề */
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Nhóm input */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Thông báo lỗi */
+.error-text {
+  color: #ff4444;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Nút submit */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
 } 

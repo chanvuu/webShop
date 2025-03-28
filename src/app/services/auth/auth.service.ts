@@ -67,6 +67,20 @@ export class AuthService {
   }
 
   register(email: string, password: string): Observable<any> {
+    // Validate email format
+    if (!email.includes('@') || !email.includes('gmail.com')) {
+      return new Observable(observer => {
+        observer.error({ message: 'Email phải có định dạng @gmail.com' });
+      });
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      return new Observable(observer => {
+        observer.error({ message: 'Mật khẩu phải có ít nhất 6 ký tự' });
+      });
+    }
+
     const users = this.getRegisteredUsers();
     if (users.some(user => user.email === email)) {
       return new Observable(observer => {
@@ -75,36 +89,53 @@ export class AuthService {
     }
 
     this.saveRegisteredUser(email, password, Role.USER);
-    return of({ success: true });
+    return of({ 
+      success: true,
+      message: 'Đăng ký thành công! Vui lòng đăng nhập để tiếp tục.'
+    });
   }
 
   login(email: string, password: string): Observable<any> {
+    // Validate email format
+    if (!email.includes('@') || !email.includes('gmail.com')) {
+      return new Observable(observer => {
+        observer.error({ message: 'Email phải có định dạng @gmail.com' });
+      });
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      return new Observable(observer => {
+        observer.error({ message: 'Mật khẩu phải có ít nhất 6 ký tự' });
+      });
+    }
+
     const users = this.getRegisteredUsers();
     const user = users.find(u => u.email === email && u.password === password);
 
-    if (user) {
-      const mockResponse = {
-        token: 'fake-jwt-token',
-        email: email,
-        role: user.role
-      };
-
-      if (isPlatformBrowser(this.platformId)) {
-        this.setToken(mockResponse.token);
-        this.setUserEmail(email);
-        this.setUserRole(user.role);
-        this.isAuthenticatedSubject.next(true);
-        this.userEmailSubject.next(email);
-        this.userRoleSubject.next(user.role);
-        this.router.navigate(['/shop']);
-      }
-
-      return of(mockResponse);
-    } else {
+    if (!user) {
       return new Observable(observer => {
-        observer.error({ message: 'Email hoặc mật khẩu không đúng' });
+        observer.error({ message: 'Email hoặc mật khẩu không chính xác' });
       });
     }
+
+    const mockResponse = {
+      token: 'fake-jwt-token',
+      email: email,
+      role: user.role
+    };
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.setToken(mockResponse.token);
+      this.setUserEmail(email);
+      this.setUserRole(user.role);
+      this.isAuthenticatedSubject.next(true);
+      this.userEmailSubject.next(email);
+      this.userRoleSubject.next(user.role);
+      this.router.navigate(['/shop']);
+    }
+
+    return of(mockResponse);
   }
 
   // Thêm phương thức refreshToken

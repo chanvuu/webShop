@@ -1,17 +1,52 @@
+/* Container chính */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--background-header);
-  color: var(--text-color);
-  padding: 10px 20px;
-  height: 45px;
-  transition: all 0.3s ease;
-  /* Thêm viền dưới */
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Viền mờ */
+  padding: 1rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-  /* Hoặc sử dụng shadow để làm nổi header */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+/* Phần logo */
+.brand-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Phần nút bên phải */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Nút theme */
+.theme-btn {
+  cursor: pointer;
+}
+
+/* Nút user */
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Nút giỏ hàng */
+.cart-btn {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
 }
 
 .header-buttons {
@@ -270,4 +305,36 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+.label[class] {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.label[class]:hover {
+  opacity: 0.8;
+}
+
+/* CSS cho nút logout */
+.label[onclick*="logout"] {
+  color: #ff4444 !important;
+  margin-left: 15px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.label[onclick*="logout"]:hover {
+  background-color: rgba(255, 68, 68, 0.1);
+  opacity: 1;
+}
+
+.label[onclick*="logout"] i {
+  font-size: 16px;
+  color: #ff4444 !important;
+  margin-right: 5px;
 }
