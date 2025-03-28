@@ -1,0 +1,36 @@
+<div class="login-page">
+  <div class="login-container">
+    <div class="left-side">
+      <h1>OFFICIAL</h1>
+      <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit</p>
+    </div>
+    <div class="right-side">
+      <h2>REGISTER FORM</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input 
+            type="email" 
+            formControlName="email"
+            placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            formControlName="password"
+            placeholder="Enter password">
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            formControlName="confirmPassword"
+            placeholder="Confirm password">
+        </div>
+        <button type="submit" class="login-btn">Register</button>
+        
+        <div class="register-link">
+          <p>Already have an account? <a routerLink="/login">Login here</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

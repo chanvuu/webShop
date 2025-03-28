@@ -1,0 +1,54 @@
+<header class="header">
+  <h1>My Angular App</h1>
+
+  <div class="header-buttons">
+    <div class="theme-switch-buttons">
+      <label class="theme-switch">
+        <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkTheme">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="login-buttons">
+      <span class="label" (click)="openLogin()">
+        <i class="fas fa-user"></i> Login
+      </span>
+    </div>
+
+    <div class="cart-buttons" (click)="toggleCartSidebar()" >
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count">{{ cartCount }}</span>
+    </div>
+  </div>
+</header>
+
+<!-- Sidebar giỏ hàng -->
+<div class="cart-sidebar" [class.open]="isCartOpen">
+  <div class="cart-header">
+    <h2>Shopping Cart</h2>
+    <button class="close-btn" (click)="toggleCartSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+    </div>
+    <div class="cart-content">
+      <p *ngIf="cartItems.length === 0">No products in the cart!</p>
+      <div class="cart-items" *ngFor="let item of cartItems">
+        <img [src]="item.image" [alt]="item.title" class="cart-item-img">
+        
+        <div class="cart-item-info">
+          <p class="cart-item-title">{{ item.title }}</p>
+          <div class="cart-item-details">
+            <p class="cart-item-price">Price: ${{ item.price }}</p>
+            <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
+            <button class="cart-item-remove" >
+              <i class="fas fa-times"></i> 
+            </button>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+</div>
+
+<!-- Overlay để bấm ra ngoài đóng sidebar -->
+<div class="cart-overlay" *ngIf="isCartOpen" (click)="toggleCartSidebar()"></div>

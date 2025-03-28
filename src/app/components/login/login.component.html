@@ -1,0 +1,40 @@
+<div class="login-page">
+  <div class="login-container">
+    <div class="left-side">
+      <h1>OFFICIAL</h1>
+      <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit</p>
+    </div>
+    <div class="right-side">
+      <h2>OFFICIAL LOGIN FORM</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input 
+            type="email" 
+            formControlName="email"
+            placeholder="mail@example.com">
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            formControlName="password"
+            placeholder="Password">
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+        
+        <div class="social-login">
+          <p>Fast Signup With Your Favourite Social Profile</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-link"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+          </div>
+        </div>
+
+        <div class="register-link">
+          <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

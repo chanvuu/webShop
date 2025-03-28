@@ -1,0 +1,33 @@
+<div class="product-container">
+  <div class="filter-section" [ngClass]="{'dark': isDarkTheme}">
+    <h3>Categories</h3>
+    <div class="category-buttons">
+      <button *ngFor="let cat of categories" (click)="filterByCategory(cat)" 
+              [ngClass]="{'active': selectedCategory === cat, 'dark': isDarkTheme}">
+        {{ cat }}
+      </button>
+    </div>
+    <div class="filter-info">
+      Showing {{ getFilteredProducts().length }} of {{ products.length }} products
+    </div>
+  </div>
+
+  <div class="products-container" *ngIf="products.length > 0; else loading">
+    <div class="product-card" *ngFor="let product of getFilteredProducts()" [ngClass]="{'dark': isDarkTheme}">
+      <div class="product-image">
+        <img [src]="product.image" [alt]="product.title">
+        <div class="category-badge">{{ product.category }}</div>
+      </div>
+      <div class="product-info">
+        <h2>{{ product.title }}</h2>
+        <p class="price">{{ product.price | currency }}</p>
+        <button class="add-to-cart-btn" (click)="addToCart(product.id)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hiển thị khi chưa tải dữ liệu -->
+  <ng-template #loading>
+    <p>Loading products...</p>
+  </ng-template>
+</div>
