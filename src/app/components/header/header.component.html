@@ -1,34 +1,33 @@
-<header class="header">
-  <h1>My Angular App</h1>
+<header class="header" [class.dark-theme]="themeService.isDarkTheme$ | async">
+  <div class="logo">
+    <a routerLink="/shop" class="logo-link">MY ANGULAR APP</a>
+  </div>
+  <div class="user-section">
+    <ng-container *ngIf="authService.isAuthenticated$ | async">
+      <div class="cart-icon" (click)="toggleCartSidebar()" >
+        🛒 <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>
+      <span [class.admin-email]="authService.isAdmin() | async"
+            [class.user-email]="!(authService.isAdmin() | async)"
+            class="email-display">
+        {{ authService.userEmail$ | async }}
+      </span>
+      <button class="theme-toggle" (click)="themeService.toggleTheme()">
+        {{ (themeService.isDarkTheme$ | async) ? '☀️' : '🌙' }}
+      </button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </ng-container>
 
-  <div class="header-buttons">
-    <div class="theme-switch-buttons">
-      <label class="theme-switch">
-        <input type="checkbox" (change)="toggleTheme()" [checked]="isDarkTheme">
-        <span class="slider"></span>
-      </label>
-    </div>
-
-    <div class="login-buttons">
-      <ng-container *ngIf="!userEmail">
-        <span class="label" (click)="openLogin()">
-          <i class="fas fa-user"></i> Login
-        </span>
-      </ng-container>
-      <ng-container *ngIf="userEmail">
-        <span class="label">
-          <i class="fas fa-user"></i> {{ userEmail }}
-        </span>
-        <span class="label" onclick="logout()" (click)="logout()">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </span>
-      </ng-container>
-    </div>
-
-    <div class="cart-buttons" (click)="toggleCartSidebar()" >
-      <i class="fas fa-shopping-cart"></i>
-      <span class="cart-count">{{ cartCount }}</span>
-    </div>
+    <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+      <div class="cart-icon" (click)="toggleCartSidebar()" >
+        🛒 <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>
+      <button class="theme-toggle" (click)="themeService.toggleTheme()">
+        {{ (themeService.isDarkTheme$ | async) ? '☀️' : '🌙' }}
+      </button>
+      <button class="login-btn" routerLink="/login">Login</button>
+      
+    </ng-container>
   </div>
 </header>
 
@@ -39,25 +38,23 @@
     <button class="close-btn" (click)="toggleCartSidebar()">
       <i class="fas fa-times"></i>
     </button>
-    </div>
-    <div class="cart-content">
-      <p *ngIf="cartItems.length === 0">No products in the cart!</p>
-      <div class="cart-items" *ngFor="let item of cartItems">
-        <img [src]="item.image" [alt]="item.title" class="cart-item-img">
-        
-        <div class="cart-item-info">
-          <p class="cart-item-title">{{ item.title }}</p>
-          <div class="cart-item-details">
-            <p class="cart-item-price">Price: ${{ item.price }}</p>
-            <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
-            <button class="cart-item-remove" >
-              <i class="fas fa-times"></i> 
-            </button>
-          </div>
+  </div>
+  <div class="cart-content">
+    <p *ngIf="cartItems.length === 0">No products in the cart!</p>
+    <div class="cart-items" *ngFor="let item of cartItems">
+      <img [src]="item.image" [alt]="item.title" class="cart-item-img">
+      <div class="cart-item-info">
+        <p class="cart-item-title">{{ item.title }}</p>
+        <div class="cart-item-details">
+          <p class="cart-item-price">Price: ${{ item.price }}</p>
+          <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
+          <button class="cart-item-remove">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
       </div>
-    
     </div>
+  </div>
 </div>
 
 <!-- Overlay để bấm ra ngoài đóng sidebar -->

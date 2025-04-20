@@ -13,20 +13,22 @@ import { filter } from 'rxjs/operators';
     HeaderComponent
   ],
   template: `
-    <app-header *ngIf="!hideHeader"></app-header>
+    <app-header *ngIf="!hideHeader && !isAdminPage"></app-header>
     <router-outlet></router-outlet>
   `
 })
 export class AppComponent {
   hideHeader = false;
+  isAdminPage = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      // Ẩn header ở trang login và register
+      // Ẩn header ở trang login, register và admin
       this.hideHeader = event.urlAfterRedirects === '/login' || 
                        event.urlAfterRedirects === '/register';
+      this.isAdminPage = event.urlAfterRedirects.startsWith('/admin');
     });
   }
 }

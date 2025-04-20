@@ -25,6 +25,7 @@ body {
     --background-cart: #191919;
     --cart-text: white;
     --hover: #ec6838;
+    --login-button: #007bff;
 }
 
 body.dark-theme {
@@ -35,6 +36,7 @@ body.dark-theme {
     --btn-text: black;
     --price-text: #B2B2B2;
     --background-cart: #ec6838;
+    --login-button: #ec6838;
     background-color: #1a1a1a;
     color: #ffffff;
 }
