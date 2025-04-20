@@ -4,6 +4,7 @@ import { ProductComponent } from './components/product/product.component';
 import { RegisterComponent } from './components/register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 export const routes: Routes = [
   { 
@@ -22,6 +23,7 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },  // trang đăng nhập riêng
   { path: 'register', component: RegisterComponent },
+  { path: 'product/:id', component: ProductDetailComponent },
   { path: '', redirectTo: 'shop', pathMatch: 'full' },  // Redirect trang chủ đến shop
   { path: '**', redirectTo: 'shop' }  // redirect về trang chủ nếu URL không hợp lệ
 ];

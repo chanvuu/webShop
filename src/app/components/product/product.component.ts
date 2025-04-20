@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product/product.service';
 import { CartService } from '../../services/cart/cart.service';
+import { Router } from '@angular/router';
 
 interface Product {
   id: number;
@@ -25,7 +26,9 @@ export class ProductComponent implements OnInit {
   isDarkTheme = false;
 
   constructor(private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
+
   ) {}
 
   ngOnInit() {
@@ -60,5 +63,9 @@ export class ProductComponent implements OnInit {
 
   addToCart(productId: number) {
     this.cartService.addToCart(productId, 1); // Thêm 1 sản phẩm vào giỏ hàng
+  }
+
+  viewProductDetail(productId: number) {
+    this.router.navigate(['/product', productId]);
   }
 }

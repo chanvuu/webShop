@@ -14,12 +14,12 @@
 
   <div class="products-container" *ngIf="products.length > 0; else loading">
     <div class="product-card" *ngFor="let product of getFilteredProducts()" [ngClass]="{'dark': isDarkTheme}">
-      <div class="product-image">
+      <div class="product-image" (click)="viewProductDetail(product.id)">
         <img [src]="product.image" [alt]="product.title">
         <div class="category-badge">{{ product.category }}</div>
       </div>
       <div class="product-info">
-        <h2>{{ product.title }}</h2>
+        <h2 (click)="viewProductDetail(product.id)">{{ product.title }}</h2>
         <p class="price">{{ product.price | currency }}</p>
         <button class="add-to-cart-btn" (click)="addToCart(product.id)">Add to Cart</button>
       </div>

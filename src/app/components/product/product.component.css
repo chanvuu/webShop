@@ -84,7 +84,14 @@
   align-items: center; /* Căn giữa hình theo chiều dọc */
   width: 100%;
   height: 255px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.product-image:hover {
+  transform: scale(1.05);
+}
+
 .product-image img {
   width: 100%;
   height: 100%;
