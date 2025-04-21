@@ -1,0 +1,87 @@
+.admin-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f8f9fc;
+  }
+  
+  .content {
+    flex-grow: 1;
+    margin-left: 260px;
+    padding: 25px;
+    overflow-y: auto;
+    border-radius: 10px;
+  }
+  
+  .dashboard-container {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .dashboard-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #343a40;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  .stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .card {
+    height: 10  0px;
+    border-radius: 18px;
+    padding: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(10px);
+  }
+  
+  
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    gap: 10px;
+  }
+  
+  .card-header i {
+    font-size: 22px;
+  }
+  
+  .card p {
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  /* Gradient màu từng card */
+  .user-card {
+    background: linear-gradient(135deg, #4e73df, #224abe);
+  }
+  
+  .product-card {
+    background: linear-gradient(135deg, #1cc88a, #17a673);
+  }
+  
+  .order-card {
+    background: linear-gradient(135deg, #36b9cc, #2c9faf);
+  }
+  
+  .revenue-card {
+    background: linear-gradient(135deg, #f6c23e, #dda20a);
+    color: #1c201c;
+  }
+  

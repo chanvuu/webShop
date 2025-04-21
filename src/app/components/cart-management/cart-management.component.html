@@ -1,0 +1,103 @@
+<div class="admin-container">
+    <main class="content">
+      <div class="header">
+        <h3>Quản lý Đơn Hàng</h3>
+      </div>
+      <div class="search-container">
+        <div class="search-bar">
+          <input type="text" [(ngModel)]="searchText" (input)="filterCarts()" placeholder="Tìm kiếm theo User ID hoặc ngày" />
+        </div>
+        <button class="add-btn" (click)="toggleForm()">Thêm Đơn Hàng</button>
+      </div>
+  
+          <!-- Form Modal -->
+     <div *ngIf="isFormVisible" class="modal">
+      <div class="modal-content">
+        <h3>{{ editingCart ? 'Sửa Đơn Hàng' : 'Thêm Đơn Hàng' }}</h3>
+
+        <label for="userId">User ID</label>
+        <input type="number" id="userId" [(ngModel)]="newCart.userId" required />
+
+        <label for="date">Ngày</label>
+        <input type="text" id="date" [(ngModel)]="newCart.date" required />
+
+        <label>Chọn sản phẩm</label>
+        <select [(ngModel)]="newProduct.productId">
+          <option [ngValue]="0">-- Chọn sản phẩm --</option>
+          <option *ngFor="let p of products" [ngValue]="p.id">
+            {{ p.title }}
+          </option>
+        </select>
+
+        <label>Số lượng</label>
+        <input type="number" [(ngModel)]="newProduct.quantity" min="1" />
+
+        <button class="addtocart" (click)="addProductToCart()">+ Thêm vào đơn</button>
+
+        <!-- Danh sách sản phẩm đã thêm -->
+        <div *ngIf="newCart.products.length > 0" class="product-list">
+          <h4>Danh sách sản phẩm đã thêm:</h4>
+          <div *ngFor="let p of newCart.products" class="product-item">
+            <img
+              [src]="getProductImageById(p.productId)"
+              [alt]="getProductTitleById(p.productId)"
+            />
+            <div class="info">
+              <strong>{{ getProductTitleById(p.productId) }}</strong>
+              <p>Giá: {{ getProductPriceById(p.productId) | currency }}</p>
+              <p>Số lượng: {{ p.quantity }}</p>
+            </div>
+            <button class="remove-btn" (click)="removeProductFromCart(p)">Xóa</button>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button class="save-btn" (click)="editingCart ? updateCart() : addCart()">
+            {{ editingCart ? 'Cập nhật' : 'Thêm' }}
+          </button>
+          <button class="cancel-btn" (click)="toggleForm()">Thoát</button>
+        </div>
+      </div>
+    </div>
+
+  
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>ID Đơn Hàng</th>
+            <th>User ID</th>
+            <th>Ngày</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cart of filteredCarts">
+            <td>{{ cart.id }}</td>
+            <td>{{ cart.userId }}</td>
+            <td>{{ cart.date }}</td>
+            <td class="actions">
+              <button class="edit-btn" (click)="editCart(cart)">Sửa</button>
+              <button class="delete-btn" (click)="deleteCart(cart.id)">Xóa</button>
+              <button class="view-btn" (click)="viewOrderDetails(cart)">Chi tiết</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Modal hiển thị chi tiết đơn hàng -->
+      <div *ngIf="selectedCart" class="modal-details">
+        <div class="modal-content">
+          <span (click)="selectedCart = null" class="close">&times;</span>
+          <h3>Chi tiết Đơn Hàng ID: {{ selectedCart.id }}</h3>
+          
+          <h4>Sản phẩm trong đơn hàng:</h4>
+          <ul>
+            <li *ngFor="let product of selectedCartProducts">
+              <strong>{{ product.title }}</strong> - {{ product.price | currency }} (x{{ product.quantity }})
+            </li>
+          </ul>          
+        </div>
+      </div>
+    </main>
+  </div>
+  
