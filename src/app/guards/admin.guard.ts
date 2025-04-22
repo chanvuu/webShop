@@ -10,6 +10,7 @@ export function adminGuard() {
   return authService.isAdmin().pipe(
     take(1),
     map(isAdmin => {
+      console.log('[adminGuard] isAdmin:', isAdmin);
       if (!isAdmin) {
         router.navigate(['/shop']);
         return false;

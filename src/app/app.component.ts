@@ -29,6 +29,7 @@ export class AppComponent {
       this.hideHeader = event.urlAfterRedirects === '/login' || 
                        event.urlAfterRedirects === '/register';
       this.isAdminPage = event.urlAfterRedirects.startsWith('/admin');
+      console.log('URL sau redirect:', event.urlAfterRedirects);
     });
   }
 }

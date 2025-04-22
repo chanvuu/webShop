@@ -42,9 +42,8 @@ export class HeaderComponent {
 
     this.authService.userRole$.subscribe(role => {
       this.isAdmin = role === Role.ADMIN;
-      if (this.isAdmin) {
-        this.router.navigate(['/admin']);
-      }
+     
+      
     });
   }
 

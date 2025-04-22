@@ -1,4 +1,4 @@
-<header class="header" [class.dark-theme]="themeService.isDarkTheme$ | async">
+<header class="header">
   <div class="logo">
     <a routerLink="/shop" class="logo-link">MY ANGULAR APP</a>
   </div>
@@ -7,7 +7,7 @@
       <div class="cart-icon" (click)="toggleCartSidebar()" >
         🛒 <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
       </div>
-      <span [routerLink]="['/admin/products']"
+      <span [routerLink]="(authService.isAdmin() | async) ? ['/admin/products'] : null"
             [class.admin-email]="authService.isAdmin() | async"
             [class.user-email]="!(authService.isAdmin() | async)"
             class="email-display">

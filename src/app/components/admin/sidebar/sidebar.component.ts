@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,4 +8,11 @@ import { RouterModule } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+ constructor(private router: Router) {}
+
+  goToUserPage() {
+    this.router.navigate(['/shop']);
+  }
+
+}
