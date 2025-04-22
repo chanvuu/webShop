@@ -1,0 +1,42 @@
+<div class="admin-container">
+    <main class="content">
+      <div class="dashboard-container">
+        <h2 class="dashboard-title">📊 Thống kê tổng quan</h2>
+  
+        <div class="stat-cards">
+          <div class="card user-card">
+            <div class="card-header">
+              <i class="fas fa-users"></i>
+              <span>Người dùng</span>
+            </div>
+            <p>{{ totalUsers }}</p>
+          </div>
+  
+          <div class="card product-card">
+            <div class="card-header">
+              <i class="fas fa-boxes"></i>
+              <span>Sản phẩm</span>
+            </div>
+            <p>{{ totalProducts }}</p>
+          </div>
+  
+          <div class="card order-card">
+            <div class="card-header">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Đơn hàng</span>
+            </div>
+            <p>{{ totalOrders }}</p>
+          </div>
+  
+          <div class="card revenue-card">
+            <div class="card-header">
+              <i class="fas fa-dollar-sign"></i>
+              <span>Doanh thu</span>
+            </div>
+            <p>{{ totalRevenue | currency:'USD':'symbol' }}</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  

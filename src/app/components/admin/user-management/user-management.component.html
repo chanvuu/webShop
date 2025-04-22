@@ -1,0 +1,61 @@
+<div class="admin-container">
+    <main class="content">
+        <div class="header">
+            <h3>Quản lý Người dùng</h3>
+        </div>
+
+        <!-- Thanh tìm kiếm -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" placeholder="🔍 Tìm kiếm người dùng..." [(ngModel)]="searchText" (input)="filterUsers()">
+            </div>
+            <button class="add-btn" (click)="openAddUserModal()">+ Thêm người dùng</button>
+        </div>
+
+        <!-- Modal Thêm/Sửa Người Dùng -->
+        <div *ngIf="isModalOpen" class="modal">
+            <div class="modal-content">
+                <h2>{{ isEditing ? 'Sửa người dùng' : 'Thêm người dùng' }}</h2>
+
+                <label for="username">Tên người dùng :</label>
+                <input type="text" [(ngModel)]="newUser.username" placeholder="Nhập tên người dùng">
+
+                <label for="email">Email :</label>
+                <input type="email" [(ngModel)]="newUser.email" placeholder="Nhập email">
+
+                <label for="password">Password :</label>
+                <input type="password" [(ngModel)]="newUser.password" placeholder="Nhập mật khẩu">
+
+                <div class="form-buttons">
+                    <button class="save-btn" (click)="isEditing ? updateUser() : addUser()">{{ isEditing ? 'Lưu' : 'Thêm' }}</button>
+                    <button class="cancel-btn" (click)="closeModal()">Thoát</button>
+                </div>
+            </div>
+       </div>
+
+        <!-- Bảng hiển thị người dùng -->
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of filteredUsers">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.password }}</td>
+                    <td class="actions">
+                        <button class="edit-btn" (click)="editUser(user)">Sửa</button>
+                        <button class="delete-btn" (click)="deleteUser(user.id)">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</div>

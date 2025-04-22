@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="product-list.component.css">
+</head>
+<body>
+    <div class="admin-container">       
+        <main class="content">
+            <div class="header">
+                <h3>Quản lý Sản phẩm</h3>
+            </div>
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="🔍 Tìm kiếm sản phẩm..." [(ngModel)]="searchText" (input)="filterProducts()">
+                </div>
+
+                <button class="add-btn" (click)="toggleForm()">+ Thêm sản phẩm</button>
+            </div>
+
+            <div class="filter-container">
+                <label for="categoryFilter">Loại sản phẩm:</label>
+                <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterProducts()">
+                    <option value="">-- Tất cả loại --</option>
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            
+                <label for="priceFilter">Lọc theo giá:</label>
+                <select [(ngModel)]="selectedPriceSortOrder" (change)="filterProducts()">
+                    <option value="">Chọn kiểu sắp xếp giá</option>
+                    <option value="asc">Tăng dần</option>
+                    <option value="desc">Giảm dần</option>
+                </select>
+            </div>
+            
+            <!-- Form thêm / sửa sản phẩm -->
+            <div class="modal" *ngIf="isFormVisible">
+                <div class="modal-content">
+                <h2>{{ editingProduct ? '✏️ Chỉnh sửa sản phẩm' : '➕ Thêm sản phẩm' }}</h2>
+                <label for="username">Tên sản phẩm : </label>
+                <input type="text" placeholder="Tên sản phẩm" [(ngModel)]="newProduct.title">
+                <label for="username">Giá :</label>
+                <input type="text" placeholder="Giá sản phẩm" [(ngModel)]="newProduct.price">  
+                <label for="username">Thể loại :</label>
+                <select [(ngModel)]="newProduct.category">
+                    <option value="" disabled selected>-- Chọn thể loại --</option>
+                    <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+                </select>
+                <label for="username">Mô tả :</label>
+                <textarea placeholder="Viết mô tả" [(ngModel)]="newProduct.description"></textarea>
+                <label for="username">Hình ảnh :</label>
+                <input type="text" placeholder="URL ảnh" [(ngModel)]="newProduct.image">
+                
+                <!-- Các nút hành động -->
+                <div class="form-buttons">
+                    <button class="save-btn" (click)="editingProduct ? updateProduct() : addProduct()">✅ {{ editingProduct ? 'Cập nhật' : 'Thêm' }}</button>
+                    <button class="cancel-btn" (click)="toggleForm()">❌ Thoát</button>
+                </div>
+                </div>
+            </div>
+  
+
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ảnh</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Loại</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of filteredProducts">
+                        <td>{{ product.id }}</td>
+                        <td><img [src]="product.image" alt="{{ product.title }}" width="50"></td>
+                        <td>{{ product.title }}</td>
+                        <td>{{ product.price }} USD</td>
+                        <td>{{ product.category }}</td>
+                        <td class="actions">
+                            <button class="edit-btn" (click)="editProduct(product)">Sửa</button>
+                            <button class="delete-btn" (click)="deleteProduct(product.id)">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>      
+    </div>
+</body>
+</html>
