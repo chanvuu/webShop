@@ -19,5 +19,7 @@ export const selectCartCount = createSelector(
 export const selectCartTotal = createSelector(
   selectCartState,
   (state: CartState) =>
-    state.items.reduce((total, item) => total + item.price * item.quantity, 0)
+    parseFloat(
+      state.items.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)
+    )
 );

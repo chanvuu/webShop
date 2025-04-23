@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product/product.service';
 import { CartService } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { CartItem } from '../../models/cart_item';
 import { Store } from '@ngrx/store';
 import { CartState } from '../../state/cart/cart.reducer';
 import { selectCartItems, selectCartTotal } from '../../state/cart/cart.selector';
 import { AddToCart } from '../../state/cart/cart.actions';
+import { AuthService } from '../../services/auth/auth.service';
 
 interface Product {
   id: number;
@@ -36,6 +37,7 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService,
     private cartService: CartService,
     private router: Router,
+    private authService: AuthService,
     private store: Store<CartState>
   ) {}
 
@@ -71,18 +73,24 @@ export class ProductComponent implements OnInit {
     alert(`Thank you for purchasing ${product.title}!`);
   }
 
-  addToCart(product: Product): void {
-    console.log("hello");
-    
-    const cartItem: CartItem = {
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      image: product.image,
-      quantity: 1 // Mặc định quantity là 1 khi thêm vào giỏ
-    };
-    console.log(cartItem);
-    this.store.dispatch(AddToCart({ cartItem }));
+  addToCart(product: Product) {
+    this.authService.isAuthenticated$.pipe(take(1)).subscribe(isLoggedIn => {
+      if (!isLoggedIn) {
+        alert('Please log in to add items to your cart.');
+        // this.router.navigate(['/login']);
+        return;
+      }
+  
+      const cartItem: CartItem = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+      };
+  
+      this.store.dispatch(AddToCart({ cartItem }));
+    });
   }
 
   viewProductDetail(productId: number) {

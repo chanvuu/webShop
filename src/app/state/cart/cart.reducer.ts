@@ -10,7 +10,7 @@ export interface CartState {
 export const initialState: CartState = {
   items: []
 };
-
+  
 export const cartReducer = createReducer(
   initialState,
   on(AddToCart, (state, { cartItem }) => {
