@@ -37,31 +37,12 @@ body.dark-theme {
     --price-text: #B2B2B2;
     --background-cart: #ec6838;
     --login-button: #ec6838;
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-/* Shop styles */
-body.dark-theme .product-card {
-  background-color: #333;
-  border-color: #444;
-}
-
-body.dark-theme .product-card h3 {
-  color: #fff;
-}
-
-body.dark-theme .product-card .price {
-  color: #40c463;
-}
-
-/* Admin dashboard styles */
-body.dark-theme .admin-dashboard {
-  background-color: #333;
-}
-
-body.dark-theme .admin-dashboard h2 {
-  color: #fff;
+    /* Product card color */
+    --bg-product-card: #333;
+    --border-product-card: #444;
+    --price-color: #40c463;
+    /* Cart color */
+    --bg-cart-quantity-control: #333;
 }
 
 /* Form styles */

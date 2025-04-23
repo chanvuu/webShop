@@ -68,12 +68,12 @@
 }
 
 .product-card {
+  background-color: var(--bg-product-card);
+  border-color: 1px solid var(--border-product-card);
   flex: 0 0 280px;
-  border: 1px solid var(--background-color);
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
-  background: var(--background-color);
   text-align: center;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .price {
-  color: var(--price-text);
+  color: var(--price-color);
   margin: 10px 0;
   font-family: var(--font-style);
   font-size: 16px;

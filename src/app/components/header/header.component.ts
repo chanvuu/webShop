@@ -5,6 +5,12 @@ import { CartService } from '../../services/cart/cart.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { ThemeService } from '../../services/theme/theme.service';
 import { Role } from '../../models/role';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { CartItem } from '../../models/cart_item';
+import { selectCartCount, selectCartItems, selectCartTotal } from '../../state/cart/cart.selector';
+import { log } from 'console';
+import { RemoveFromCart, UpdateQuantity } from '../../state/cart/cart.actions';
 
 @Component({
   selector: 'app-header',
@@ -20,17 +26,21 @@ export class HeaderComponent {
   isDarkTheme = false;
   userEmail: string = '';
   isAdmin: boolean = false;
+  cartItems$: Observable<CartItem[]>  = new Observable<CartItem[]>();
+  cartCount$: Observable<number>  = new Observable<number>();
+  cartTotal$: Observable<number>  = new Observable<number>();
 
   constructor(
     private cartService: CartService,
     private router: Router,
     public authService: AuthService,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private store: Store
   ) {
-    this.cartService.cartItems$.subscribe(items => {
-      this.cartItems = items;
-      this.cartCount = items.reduce((total, item) => total + item.quantity, 0);
-    });
+    // this.cartService.cartItems$.subscribe(items => {
+    //   this.cartItems = items;
+    //   this.cartCount = items.reduce((total, item) => total + item.quantity, 0);
+    // });
     
     this.themeService.isDarkTheme$.subscribe(isDark => {
       this.isDarkTheme = isDark;
@@ -47,6 +57,13 @@ export class HeaderComponent {
     });
   }
 
+  ngOnInit() {
+    this.cartItems$ = this.store.select(selectCartItems);
+    this.cartCount$ = this.store.select(selectCartCount);
+    this.cartTotal$ = this.store.select(selectCartTotal);  
+        
+  }
+
   toggleTheme() {
     this.themeService.toggleTheme();
   }
@@ -61,5 +78,15 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  removeItem(productId: number) {
+    this.store.dispatch(RemoveFromCart({ productId }));
+  }
+  
+  updateItemQuantity(productId: number, quantity: number) {
+    if (quantity >= 1) {  // Đảm bảo số lượng không âm
+      this.store.dispatch(UpdateQuantity({ productId, quantity }));
+    }
   }
 }
