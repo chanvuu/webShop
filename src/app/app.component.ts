@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
   imports: [
     CommonModule,
     RouterModule,
-    HeaderComponent
+    HeaderComponent,
   ],
   template: `
     <app-header *ngIf="!hideHeader && !isAdminPage"></app-header>

@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product/product.service';
 import { CartService } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CartItem } from '../../models/cart_item';
+import { Store } from '@ngrx/store';
+import { CartState } from '../../state/cart/cart.reducer';
+import { selectCartItems, selectCartTotal } from '../../state/cart/cart.selector';
+import { AddToCart } from '../../state/cart/cart.actions';
 
 interface Product {
   id: number;
@@ -24,14 +30,18 @@ export class ProductComponent implements OnInit {
   categories: string[] = ['All'];
   selectedCategory: string = 'All';
   isDarkTheme = false;
-
+  cartItems$: Observable<CartItem[]> = new Observable<CartItem[]>();
+  cartTotal$: Observable<number> = new Observable<number>();
+  
   constructor(private productService: ProductService,
     private cartService: CartService,
-    private router: Router
-
+    private router: Router,
+    private store: Store<CartState>
   ) {}
 
   ngOnInit() {
+    this.cartItems$ = this.store.select(selectCartItems); 
+    this.cartTotal$ = this.store.select(selectCartTotal);  
     this.loadProducts();
   }
 
@@ -61,8 +71,18 @@ export class ProductComponent implements OnInit {
     alert(`Thank you for purchasing ${product.title}!`);
   }
 
-  addToCart(productId: number) {
-    this.cartService.addToCart(productId, 1); // Thêm 1 sản phẩm vào giỏ hàng
+  addToCart(product: Product): void {
+    console.log("hello");
+    
+    const cartItem: CartItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      quantity: 1 // Mặc định quantity là 1 khi thêm vào giỏ
+    };
+    console.log(cartItem);
+    this.store.dispatch(AddToCart({ cartItem }));
   }
 
   viewProductDetail(productId: number) {

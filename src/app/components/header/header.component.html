@@ -4,9 +4,13 @@
   </div>
   <div class="user-section">
     <ng-container *ngIf="authService.isAuthenticated$ | async">
-      <div class="cart-icon" (click)="toggleCartSidebar()" >
-        🛒 <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      <div class="cart-icon" (click)="toggleCartSidebar()">
+        🛒
+        <ng-container *ngIf="(cartCount$ | async) as cartCount">
+          <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        </ng-container>
       </div>
+      
       <span [routerLink]="(authService.isAdmin() | async) ? ['/admin/products'] : null"
             [class.admin-email]="authService.isAdmin() | async"
             [class.user-email]="!(authService.isAdmin() | async)"
@@ -20,9 +24,13 @@
     </ng-container>
 
     <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
-      <div class="cart-icon" (click)="toggleCartSidebar()" >
-        🛒 <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      <div class="cart-icon" (click)="toggleCartSidebar()">
+        🛒
+        <ng-container *ngIf="(cartCount$ | async) as cartCount">
+          <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+        </ng-container>
       </div>
+            
       <button class="theme-toggle" (click)="themeService.toggleTheme()">
         {{ (themeService.isDarkTheme$ | async) ? '☀️' : '🌙' }}
       </button>
@@ -41,21 +49,32 @@
     </button>
   </div>
   <div class="cart-content">
-    <p *ngIf="cartItems.length === 0">No products in the cart!</p>
-    <div class="cart-items" *ngFor="let item of cartItems">
+    <p *ngIf="(cartItems$ | async)?.length === 0">No products in the cart!</p>
+    <div class="cart-items" *ngFor="let item of cartItems$ | async">
       <img [src]="item.image" [alt]="item.title" class="cart-item-img">
       <div class="cart-item-info">
         <p class="cart-item-title">{{ item.title }}</p>
         <div class="cart-item-details">
           <p class="cart-item-price">Price: ${{ item.price }}</p>
-          <p class="cart-item-quantity">Qty: {{ item.quantity }}</p>
-          <button class="cart-item-remove">
+          <div class="quantity-control">
+            <button (click)="updateItemQuantity(item.id, item.quantity - 1)" 
+                    [disabled]="item.quantity <= 1" class="quantity-btn">-</button>
+            <span class="quantity-display">{{ item.quantity }}</span>
+            <button (click)="updateItemQuantity(item.id, item.quantity + 1)" class="quantity-btn">+</button>
+          </div>
+          <button class="cart-item-remove" (click)="removeItem(item.id)">
             <i class="fas fa-times"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
+  
+    <!-- Tổng giỏ hàng -->
+    <div class="cart-total">
+      <p>Total: ${{ cartTotal$ | async }}</p>  <!-- Lấy giá trị từ cartTotal$ -->
+    </div>
+
 </div>
 
 <!-- Overlay để bấm ra ngoài đóng sidebar -->

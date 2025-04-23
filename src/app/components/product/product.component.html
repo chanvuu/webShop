@@ -1,5 +1,5 @@
 <div class="product-container">
-  <div class="filter-section" [ngClass]="{'dark': isDarkTheme}">
+  <div class="filter-section">
     <h3>Categories</h3>
     <div class="category-buttons">
       <button *ngFor="let cat of categories" (click)="filterByCategory(cat)" 
@@ -13,7 +13,7 @@
   </div>
 
   <div class="products-container" *ngIf="products.length > 0; else loading">
-    <div class="product-card" *ngFor="let product of getFilteredProducts()" [ngClass]="{'dark': isDarkTheme}">
+    <div class="product-card" *ngFor="let product of getFilteredProducts()" >
       <div class="product-image" (click)="viewProductDetail(product.id)">
         <img [src]="product.image" [alt]="product.title">
         <div class="category-badge">{{ product.category }}</div>
@@ -21,7 +21,7 @@
       <div class="product-info">
         <h2 (click)="viewProductDetail(product.id)">{{ product.title }}</h2>
         <p class="price">{{ product.price | currency }}</p>
-        <button class="add-to-cart-btn" (click)="addToCart(product.id)">Add to Cart</button>
+        <button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
       </div>
     </div>
   </div>
