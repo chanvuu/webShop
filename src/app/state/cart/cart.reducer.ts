@@ -1,7 +1,7 @@
 // cart.reducer.ts
 import { createReducer, on } from '@ngrx/store';
 import { CartItem } from '../../models/cart_item';
-import { AddToCart, RemoveFromCart, UpdateQuantity } from './cart.actions';
+import { AddToCart, ClearCart, RemoveFromCart, UpdateQuantity } from './cart.actions';
 
 export interface CartState {
   items: CartItem[];
@@ -40,5 +40,9 @@ export const cartReducer = createReducer(
     items: state.items.map(item =>
       item.id === productId ? { ...item, quantity } : item
     )
+  })),
+  on(ClearCart, state => ({
+    ...state,
+    items: [] // Xóa tất cả các item trong giỏ hàng
   }))
 );

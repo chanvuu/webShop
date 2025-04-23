@@ -221,6 +221,10 @@
   color: var(--text-color);
 }
 
+.cart-content p {
+  margin-left: 15px;
+}
+
 .cart-items {
   display: flex;
   align-items: center;

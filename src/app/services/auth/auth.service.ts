@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { tap, map } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Role } from '../../models/role';
+import { ClearCart } from '../../state/cart/cart.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,7 @@ export class AuthService {
 
   constructor(
     private router: Router,
+    private store: Store,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
@@ -163,6 +166,7 @@ export class AuthService {
       localStorage.removeItem(this.USER_KEY);
       localStorage.removeItem(this.USER_ROLE_KEY);
     }
+    this.store.dispatch(ClearCart());
     this.isAuthenticatedSubject.next(false);
     this.userEmailSubject.next('');
     this.userRoleSubject.next(Role.USER);
